@@ -19,13 +19,19 @@ The dataset collected from Goodreads contains detailed information about books, 
 ## The Insights Discovered
 1. **Uniform Data Spread**:
    - The uniform distribution of `book_id` indicates balanced representation across the dataset, with no clustering or bias in book entries.
+     ![book_id_distribution](https://github.com/user-attachments/assets/32b188f0-f570-452e-b70d-73771798df78)
+
 
 2. **Relationships Among Metrics**:
    - Strong correlations exist among `ratings_count`, `work_ratings_count`, and `work_text_reviews_count`, indicating that books with high ratings counts tend to also have more text reviews. This reflects user engagement trends.
    - `average_rating` is only moderately correlated with these popularity metrics, suggesting that a book's quality (as perceived by readers) is not solely determined by how many people rate or review it.
+     ![correlation_heatmap](https://github.com/user-attachments/assets/2fa0d23e-f656-4a05-9800-c26d8a8b79a8)
+
 
 3. **Missing Data Challenge**:
    - Columns like `isbn`, `authors`, and `original_title` have significant missing values, potentially impacting the reliability of analyses related to those fields.
+     
+![missing_values](https://github.com/user-attachments/assets/7262b209-45c8-4d35-a9a1-bed74e72ce0e)
 
 ## The Implications of Findings
 1. **Actionable Insights**:
