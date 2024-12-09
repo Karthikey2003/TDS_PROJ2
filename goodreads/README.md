@@ -1,4 +1,8 @@
 # Analysis of Goodreads Dataset
+
+## The Data Received
+The dataset collected from Goodreads contains detailed information about books, including attributes like `book_id`, `isbn`, `authors`, `title`, `language_code`, `average_rating`, and various measures of reader engagement (e.g., `ratings_count`, `work_text_reviews_count`, and `ratings_1` through `ratings_5`). It spans metadata such as publication years, unique book identifiers, and even URLs for book images. While comprehensive, the dataset contains some missing values in columns like `isbn`, `authors`, and `original_title`.
+
 ## Summary Statistics
 
 |                           |   count |   unique | top                                                                                      |   freq |            mean |              std |            min |             25% |              50% |             75% |              max |
@@ -55,8 +59,6 @@
 | image_url                 |    0 |
 | small_image_url           |    0 |
 
-## The Data Received
-The dataset collected from Goodreads contains detailed information about books, including attributes like `book_id`, `isbn`, `authors`, `title`, `language_code`, `average_rating`, and various measures of reader engagement (e.g., `ratings_count`, `work_text_reviews_count`, and `ratings_1` through `ratings_5`). It spans metadata such as publication years, unique book identifiers, and even URLs for book images. While comprehensive, the dataset contains some missing values in columns like `isbn`, `authors`, and `original_title`.
 
 ## The Analysis Carried Out
 1. **Data Cleaning**:
