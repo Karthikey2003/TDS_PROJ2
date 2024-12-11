@@ -131,22 +131,6 @@ The darkness is deep. But the data provides the tools to shine a light.
 
 ---
 
-## **Visualizations: Illuminating the Shadows**
-
-### **1. Missing Values Bar Plot**  
-![Missing Values](missing_values.png)  
-- A spotlight on the darkest corners of the dataset.
-
-### **2. Correlation Heatmap**  
-![Correlation Heatmap](correlation_heatmap.png)  
-- A map of relationships, showing how the gears of engagement turn.
-
-### **3. Distribution Plot (book_id)**  
-![Book ID Distribution](book_id_distribution.png)  
-- A display of balance—a dataset with stories evenly spread.
-
----
-
 ## **Final Notes: The Hero Gotham Deserves**
 
 The Goodreads dataset is a treasure trove for uncovering patterns in book popularity, quality, and reader engagement. By addressing missing data and leveraging the insights gained from correlations, one can build powerful models for recommendation systems or trend analyses.  
