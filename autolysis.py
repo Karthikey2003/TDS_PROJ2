@@ -7,20 +7,20 @@ from pathlib import Path
 from IPython.display import display
 from google.colab import files
 
-# Set OpenAI API key from environment variable
+# Gotham calls. Set the secret key for the OpenAI Bat-Signal.
 openai.api_key = os.environ.get("AIPROXY_TOKEN")
 
 def analyze_csv(data, filename):
-    # Summary statistics
+    # Scanning Gotham's data landscape for crucial details...
     summary_stats = data.describe(include='all').transpose()
     missing_values = data.isnull().sum()
     correlation_matrix = data.corr(numeric_only=True)
-    
-    # Save summaries to strings for GPT-4o-Mini
+
+    # Save these findings for the Oracle (GPT-4o-Mini knows all).
     data_preview = data.head().to_string()
     column_types = data.dtypes.to_dict()
 
-    # Generate story and suggestions using GPT
+    # Summon the Oracle for insights, visualization ideas, and the story of Gotham's dataset.
     prompt = f"""
 You are analyzing a dataset. Here are the details:
 
@@ -41,14 +41,15 @@ Provide:
         )
         gpt_response = response['choices'][0]['message']['content']
     except Exception as e:
-        gpt_response = f"Failed to get GPT response: {e}"
+        # Sometimes the Oracle fails. Note it down, Batman style.
+        gpt_response = f"The Oracle failed to respond: {e}"
 
-    # Create charts based on analysis
+    # Craft the visual tools to battle the darkness of ignorance.
     charts = []
     output_dir = Path(filename).stem
     os.makedirs(output_dir, exist_ok=True)
 
-    # Chart 1: Missing values barplot
+    # Visualization 1: Expose the lurking shadows of missing values.
     plt.figure(figsize=(10, 6))
     sns.barplot(x=missing_values.index, y=missing_values.values)
     plt.xticks(rotation=45, ha='right')
@@ -59,7 +60,7 @@ Provide:
     charts.append(chart_path)
     plt.close()
 
-    # Chart 2: Correlation heatmap (if numeric data exists)
+    # Visualization 2: Use the heatmap lens to decode Gotham's numeric connections.
     if not correlation_matrix.empty:
         plt.figure(figsize=(10, 8))
         sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f")
@@ -69,7 +70,7 @@ Provide:
         charts.append(chart_path)
         plt.close()
 
-    # Chart 3: Distribution of a sample numeric column (if available)
+    # Visualization 3: Spotlight a numeric column's secrets.
     numeric_cols = data.select_dtypes(include=['float64', 'int64']).columns
     if not numeric_cols.empty:
         plt.figure(figsize=(10, 6))
@@ -80,7 +81,7 @@ Provide:
         charts.append(chart_path)
         plt.close()
 
-    # Write README.md
+    # Prepare the Bat-Report.
     with open(os.path.join(output_dir, "README.md"), "w") as readme:
         readme.write("# Dataset Analysis Report\n\n")
         readme.write(f"**Dataset:** {filename}\n\n")
@@ -88,22 +89,23 @@ Provide:
         readme.write(summary_stats.to_markdown())
         readme.write("\n\n## Missing Values\n")
         readme.write(missing_values.to_markdown())
-        readme.write("\n\n## GPT-4o-Mini Analysis\n")
+        readme.write("\n\n## Oracle's Wisdom\n")
         readme.write(gpt_response)
         readme.write("\n\n## Visualizations\n")
         for chart in charts:
             readme.write(f"![{chart}]({chart})\n")
 
 if __name__ == "__main__":
-    # Upload CSV file
-    print("Please upload your CSV file:")
+    # The call comes in. Time to upload the evidence.
+    print("Upload your CSV file. Gotham needs answers.")
     uploaded = files.upload()
 
-    # Get the first uploaded file
+    # Pick the first uploaded file, the first clue to the mystery.
     if uploaded:
         filename = next(iter(uploaded.keys()))
         data = pd.read_csv(filename)
         analyze_csv(data, filename)
-        print(f"Analysis completed. Check the '{Path(filename).stem}' folder for results.")
+        print(f"Analysis complete. Check the '{Path(filename).stem}' folder for the Bat-Report.")
     else:
-        print("No file uploaded. Exiting.")
+        # No file, no mission. Gotham will wait.
+        print("No file uploaded. Mission aborted.")
