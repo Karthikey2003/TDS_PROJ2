@@ -18,7 +18,7 @@ Even in chaos, numbers whisper truths. Here's what they reveal:
 - **Social Support**: A strong average of 0.81 suggests a collective reliance in hard times.
 - **Healthy Life Expectancy**: Spanning from a mere 6.72 to 74.6 years, it highlights the diversity in global health.
 - **Missing Data**: Shadows linger—key metrics like perceptions of corruption and generosity carry notable gaps.
-## Summary Statistics
+## 
 |                                  |   count |   unique | top     |   freq |           mean |         std |      min |       25% |       50% |        75% |      max |
 |:---------------------------------|--------:|---------:|:--------|-------:|---------------:|------------:|---------:|----------:|----------:|-----------:|---------:|
 | Country name                     |    2363 |      165 | Lebanon |     18 |  nan           | nan         |  nan     |  nan      |  nan      |  nan       |  nan     |
