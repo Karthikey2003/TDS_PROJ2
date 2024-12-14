@@ -1,4 +1,1 @@
-git add correlation_heatmap.png
-git commit -m "Add correlation heatmap image"
-git push
-
+![Correlation Heatmap](correlation_heatmap.png)
