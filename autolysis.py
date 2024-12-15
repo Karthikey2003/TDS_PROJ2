@@ -2,13 +2,32 @@ import os
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import openai
+import requests
 from pathlib import Path
 from IPython.display import display
 from google.colab import files
 
-# Gotham calls. Set the secret key for the OpenAI Bat-Signal.
-openai.api_key = os.environ.get("AIPROXY_TOKEN")
+# Gotham calls. Set the secret key for the Bat-Signal (API Proxy Token).
+os.environ["AIPROXY_TOKEN"] = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDE5OTJAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.id9FCG3759uU8dikk7-1Ix9hQ2Pm4vnI21WScGh6BzY'
+
+def fetch_gpt_response(prompt, token):
+    """
+    Call the API proxy to get GPT-4o-mini's response.
+    """
+    url = "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions"  # Replace with the actual endpoint URL for api_proxy.
+    headers = {"Authorization": f"Bearer {token}"}
+    payload = {
+        "model": "gpt-4o-mini",
+        "messages": [{"role": "user", "content": prompt}],
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()  # Raise an error for bad HTTP responses
+        return response.json()["choices"][0]["message"]["content"]
+    except Exception as e:
+        return f"Failed to get GPT response: {e}"
+
 
 def analyze_csv(data, filename):
     # Scanning Gotham's data landscape for crucial details...
@@ -33,16 +52,10 @@ Provide:
 1. Key insights from the dataset.
 2. Suggestions for meaningful visualizations.
 3. A brief story summarizing these insights.
+Write all these in Batman Style. Also include Bat signal too.
 """
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        gpt_response = response['choices'][0]['message']['content']
-    except Exception as e:
-        # Sometimes the Oracle fails. Note it down, Batman style.
-        gpt_response = f"The Oracle failed to respond: {e}"
+    token = os.environ.get("AIPROXY_TOKEN")
+    gpt_response = fetch_gpt_response(prompt, token)
 
     # Craft the visual tools to battle the darkness of ignorance.
     charts = []
@@ -103,8 +116,17 @@ if __name__ == "__main__":
     # Pick the first uploaded file, the first clue to the mystery.
     if uploaded:
         filename = next(iter(uploaded.keys()))
-        data = pd.read_csv(filename)
+        try:
+           data = pd.read_csv(filename, encoding='utf-8')  # Default attempt with UTF-8
+        except UnicodeDecodeError:
+           data = pd.read_csv(filename, encoding='latin1')  # Fallback to latin1 if UTF-8 fails
+ 
         analyze_csv(data, filename)
+        print(f"Analysis complete. Check the '{Path(filename).stem}' folder for the Bat-Report.")
+    else:
+        # No file, no mission. Gotham will wait.
+        print("No file uploaded. Mission aborted.")
+
         print(f"Analysis complete. Check the '{Path(filename).stem}' folder for the Bat-Report.")
     else:
         # No file, no mission. Gotham will wait.
